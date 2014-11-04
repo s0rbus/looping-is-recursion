@@ -67,5 +67,10 @@
            (recur (+ f0 f1) f0 (dec m)))))
 
 (defn cut-at-repetition [a-seq]
-  [":("])
+  (loop [s #{}
+         v []
+         coll a-seq]
+        (if (or (= s (conj s (first coll))) (empty? coll))
+          v
+          (recur (conj s (first coll)) (conj v (first coll)) (rest coll)))))
 
